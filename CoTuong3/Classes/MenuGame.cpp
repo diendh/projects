@@ -11,6 +11,8 @@
 #include "UserDataEncrypt.h"
 #include "AppDelegate.h"
 
+#include "CCAlertView.h"
+
 using namespace CocosDenshion;
 
 CCScene* MenuGame::scene()
@@ -110,7 +112,12 @@ void MenuGame::menuPlay(){
 }
 
 void MenuGame::menuInfo(){
-    AppDelegate::musicButton();    
+    
+    CCAlertView *al = CCAlertView::create("hihi", "khkhj", "can", "oke", NULL, NULL, NULL);
+    al->setScale(10);
+    addChild(al);
+    
+    AppDelegate::musicButton();
 }
 void MenuGame::menuShare(){
     AppDelegate::musicButton();

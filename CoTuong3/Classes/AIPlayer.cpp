@@ -124,7 +124,6 @@ void AIPlayer::play() {
 void AIPlayer::setSide(int _side) {
 	side = _side;
 	xside = 1 - side;
-    CCLOG("AI set new side: %d", _side);
 }
 
 void AIPlayer::movePiece(int from, int dest) {

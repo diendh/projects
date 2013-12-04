@@ -34,6 +34,9 @@ public:
     void createTable();
     
     CCPoint getPosAtIndex(int index);
+    int getIndexFromPos(cocos2d::CCPoint pos);
+    int _newmovefrom; int _newmovedest;
+    
     void aiplayerstart();
     
     void update();
