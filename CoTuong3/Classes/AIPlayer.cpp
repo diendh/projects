@@ -7,7 +7,7 @@ int materialnumber[2][7] = { { 5, 2, 2, 2, 2, 2, 1 }, { 5, 2, 2, 2, 2, 2, 1 } };
 
 #include "AIPlayer.h"
 
-#define COCOS2D_DEBUG 1
+//#define COCOS2D_DEBUG 1
 static AIPlayer m_SharedAIPlayer;
 
 AIPlayer* AIPlayer::shared() {
@@ -18,7 +18,7 @@ AIPlayer::AIPlayer(void) {
 	side = DARK;
 	xside = LIGHT;
 	m_Stop = true;
-	setMaxPly(4);
+	setMaxPly(8);
 }
 
 void AIPlayer::setMaxPly(int sPly)
@@ -30,7 +30,7 @@ void AIPlayer::setMaxPly(int sPly)
             break;
         case 2:
             MAX_PLY = 2;
-            type = 0;
+            type = 1;
             break;
         case 3:
             MAX_PLY = 4;
@@ -38,7 +38,7 @@ void AIPlayer::setMaxPly(int sPly)
             break;
         case 4:
             MAX_PLY = 4;
-            type = 0;
+            type = 1;
             break;
         case 5:
             MAX_PLY = 5;
@@ -46,7 +46,7 @@ void AIPlayer::setMaxPly(int sPly)
             break;
         case 6:
             MAX_PLY = 6;
-            type = 0;
+            type = 1;
             break;
         case 7:
             MAX_PLY = 7;
@@ -54,7 +54,7 @@ void AIPlayer::setMaxPly(int sPly)
             break;
         case 8:
             MAX_PLY = 8;
-            type = 0;
+            type = 1;
             break;
         case 9:
             MAX_PLY = 9;
@@ -62,7 +62,7 @@ void AIPlayer::setMaxPly(int sPly)
             break;
         case 10:
             MAX_PLY = 10;
-            type = 0;
+            type = 1;
             break;
         case 11:
             MAX_PLY = 11;
@@ -70,7 +70,7 @@ void AIPlayer::setMaxPly(int sPly)
             break;
         default:
             MAX_PLY = 5;
-            type = 0;
+            type = 1;
             break;
     }
 }
@@ -86,7 +86,7 @@ AIPlayer::~AIPlayer(void) {
 }
 
 void AIPlayer::start() {
-    CCLOG("AI for side: %d", side);
+    printf("AI for side: %d \n", side);
 	m_Stop = false;
 	pthread_create(&m_thread, NULL, &runThread, this);
 }
@@ -95,7 +95,7 @@ void AIPlayer::stop() {
 	if (!m_Stop) {
 		m_Stop = true;
 		int result = pthread_kill(m_thread, 0);
-		CCLOG("cancel pthread result: %d", result);
+		printf("cancel pthread result: %d \n", result);
 	}
 }
 void AIPlayer::play() {
@@ -110,11 +110,8 @@ void AIPlayer::play() {
 		if (newmove.from == -1)
 			break;
 	}
-//	if (m_GameScene && !m_Stop) {
-//		/*GameScene* game = dynamic_cast<GameScene*>(m_GameScene);*/
-        CCLOG("new move from AI: %d %d", newmove.from, newmove.dest);
-//	m_GameScene->AINewMove(newmove.from, newmove.dest);
-//	}
+    printf("new move from AI: %d %d \n", newmove.from, newmove.dest);
+
     if (_layerDelegate  && !m_Stop) {
          _layerDelegate->AIPlayerRunDone(newmove.from,newmove.dest);
     }
@@ -455,7 +452,7 @@ int* AIPlayer::getAllAvaiblePos(int pos) {
 			}
 		} /* for k */
 	} /* for j */
-	CCLOG("count: %d", count);
+	printf("count: %d \n", count);
 	aMove[count] = -1;
     
 	return aMove;
@@ -545,8 +542,8 @@ bool AIPlayer::GenCapture() {
 	gen_end[ply + 1] = gen_end[ply];
 	gen_begin[ply + 1] = gen_end[ply];
     
-	//		capbrandtotal += (unsigned long)gen_end[ply] - gen_begin[ply];
-	//		if (gen_end[ply] > gen_begin[ply]) capgencount++;
+//	capbrandtotal += (unsigned long)gen_end[ply] - gen_begin[ply];
+//	if (gen_end[ply] > gen_begin[ply]) capgencount++;
 	return (gen_begin[ply] < gen_end[ply]);
 }
 

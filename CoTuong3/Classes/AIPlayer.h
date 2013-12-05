@@ -3,11 +3,11 @@
 
 #include "define.h"
 #include "pthread.h"
-
-#include "cocos2d.h"
-
-USING_NS_CC;
-
+#include <iostream>
+//#include "cocos2d.h"
+//
+//USING_NS_CC;
+using namespace std;
 typedef move Move;
 
 class AIPlayerDelegate;

@@ -12,6 +12,7 @@
 #include "ChoseDauTruong.h"
 #include "CCSpriterX.h"
 
+
 CCScene* ChoiDon::scene()
 {
     // 'scene' is an autorelease object
@@ -36,7 +37,7 @@ bool ChoiDon::init()
     {
         return false;
     }
-    CCLOG("setTouchEnabled");
+    
     CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
     
     //add bg
@@ -104,16 +105,38 @@ int ChoiDon::getIndexFromPos(cocos2d::CCPoint pos) {
 bool ChoiDon::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
     CCPoint tPosition = pTouch->getLocationInView();
     tPosition = CCDirector::sharedDirector()->convertToGL(tPosition);
+        
     int index = getIndexFromPos(tPosition);
     if (index >= 0) {
         /* Lay quan co o vi tri index neu co */
         Piece* piece = dynamic_cast<Piece*>(getChildByTag(index));
-        if (!piece) {
+        if (!piece || piece->getSide()==LIGHT) {
+            AIPlayerRunDone(_newmovedest, index);
             return false;
         }
-         piece->setSelected(true);
+        
+        removePointAtpos();
+        
+        if (piece->getSide() == DARK) {
+            piece->setSelected(true);
+            
+            AIPlayer::shared()->LoadBoard(m_Table, m_Colors);
+            int* moves = AIPlayer::shared()->getAllAvaiblePos(index);
+            
+            for (int i = 0; i < 20; i++) {
+                m_AvaibleMoves[i] = moves[i];
+                
+                if (moves[i] == -1) {
+                    break;
+                }
+                
+                addShowPointAtPos(getPosAtIndex(moves[i]));
+            }
+            delete[] moves;
+        }
+            _newmovedest = index;
     }
-    _newmovedest = index;
+    
     return true;
 }
 
@@ -134,18 +157,10 @@ void ChoiDon::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
     CCPoint tPosition = pTouch->getLocationInView();
     tPosition = CCDirector::sharedDirector()->convertToGL(tPosition);
     _newmovefrom = getIndexFromPos(tPosition);
-    AIPlayerRunDone(_newmovedest, _newmovefrom);
-    for (int i = 0; i < this->getChildren()->count() ; i++) {
-        Piece *piece = dynamic_cast<Piece*>(this->getChildren()->objectAtIndex(i));
-        if (piece) {
-            if (piece->isSelected()){
-                piece->setSelected(false);
-            }
-        }
+    if (_newmovedest == _newmovefrom) {
+        return;
     }
-//     CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.2, ChoseDauTruong::scene()));
-//    AIPlayer::shared()->stop();
-//    aiplayerstart();
+    AIPlayerRunDone(_newmovedest, _newmovefrom);
 }
 
 void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
@@ -156,6 +171,24 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
         return;
     }
     
+    removeChildByTag(100, true);
+    
+    if (isDARK){
+        if (!arrayAtPos[newmovedest]) {
+            for (int i = 0; i < this->getChildren()->count() ; i++) {
+                Piece *piece = dynamic_cast<Piece*>(this->getChildren()->objectAtIndex(i));
+                if (piece) {
+                    if (piece->getTag() == newmovefrom) {
+//                        CCMoveTo *moveto = CCMoveTo::create(0.1f, getPosAtIndex(newmovefrom));
+                        piece->setPosition(getPosAtIndex(newmovefrom));
+                    }
+                }
+            }
+            
+            CCLOG("!arrayAtPos[%i]",newmovedest);
+            return;
+        }
+    }
     for (int i = 0; i < this->getChildren()->count() ; i++) {
         Piece *piece = dynamic_cast<Piece*>(this->getChildren()->objectAtIndex(i));
         if (piece) {
@@ -171,7 +204,7 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
             if (piece->getTag() == newmovefrom) {
                 piece->setTag(newmovedest);
 //                piece->setPosition(getPosAtIndex(newmovedest));
-                CCMoveTo *moveto = CCMoveTo::create(1.0f, getPosAtIndex(newmovedest));
+                CCMoveTo *moveto = CCMoveTo::create(0.5f, getPosAtIndex(newmovedest));
                 piece->runAction(CCSequence::create(moveto,CCCallFuncN::create(this,callfuncN_selector(ChoiDon::aiplayerstart)),NULL));
 //                piece->runAction(moveto);
                 m_Table[newmovedest] = m_Table[newmovefrom];
@@ -181,28 +214,59 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
             }
         }
     }
-        
+    removePointAtpos();    
 }
 
 void ChoiDon::aiplayerstart(){
-    int random = arc4random()%7;
-    CCLOG("random %i",random);
     AIPlayer::shared()->LoadBoard(m_Table, m_Colors);
-    if (isDARK) {
-        
-        isDARK = false;
-        return;
-//        AIPlayer::shared()->setMaxPly(7);
-//        AIPlayer::shared()->setSide(LIGHT);
-    }else{
-        AIPlayer::shared()->setMaxPly(6);
-        AIPlayer::shared()->setSide(LIGHT);
+    if (!isDARK) {
         isDARK = true;
+        return;
     }
+    
+    CCSprite *sp = CCSprite::create("hourglass.png");
+    sp->setPosition(ccp(240, 400));
+    CCRotateBy *rota = CCRotateBy::create(0.2, 20);
+    sp->runAction(CCRepeatForever::create(rota));
+    addChild(sp,100,100);
+    
+    isDARK = false;
+    
     AIPlayer::shared()->start();
     sumtime = 0;
 }
 
 void ChoiDon::update(){
     sumtime++;
+}
+
+void ChoiDon::addShowPointAtPos(CCPoint pos) {    
+    CCSprite* movePoint = CCSprite::create("Banchoi/quanco/goi-y-quan.png");
+    movePoint->setPosition(pos);
+    movePoint->runAction(CCRepeatForever::create(CCSequence::create(
+                                                                    CCFadeIn::create(0.5),
+                                                                    CCFadeOut::create(0.5),
+                                                                    0
+                                                                    )));
+    
+    this->addChild(movePoint, 1, 13258614);
+    arrayAtPos[getIndexFromPos(pos)] = true;
+}
+
+void ChoiDon::removePointAtpos(){
+    if (!getChildren()->count()) {
+        return;
+    }
+    memset(arrayAtPos, 0, sizeof(arrayAtPos));
+    
+    for (int i = 0; i < getChildren()->count(); i++) {
+        Piece *piece = dynamic_cast<Piece*>(this->getChildren()->objectAtIndex(i));
+        if (piece) {
+            if (piece->isSelected()){
+                piece->setSelected(false);
+            }
+        }
+        removeChildByTag(13258614, true);
+    }
+    
 }

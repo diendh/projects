@@ -93,9 +93,11 @@ void Piece::setSelected(bool bSelected)
 {
     m_SelectedSprite->setVisible(bSelected);
     if (bSelected) {
+        this->setZOrder(500);
         this->runAction(CCScaleTo::create(0.1, 1.15));
     }
     else{
+        this->setZOrder(90);
         this->runAction(CCScaleTo::create(0.1, 1.0));
     }
 }

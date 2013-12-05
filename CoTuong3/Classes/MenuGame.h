@@ -23,7 +23,7 @@ public:
 	    // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static CCScene* scene();
     
-        void updatethis();
+    void updatethis();
     
     void showdauan();
     void showkytien();
@@ -34,8 +34,8 @@ public:
     void menuShare();
     void menuDownload();
     void menuExit(CCObject* pSender);
-	    // implement the "static node()" method manually
-	    CREATE_FUNC(MenuGame);
+    // implement the "static node()" method manually
+    CREATE_FUNC(MenuGame);
 };
 
 #endif /* MENUGAME_H_ */

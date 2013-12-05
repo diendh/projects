@@ -12,10 +12,17 @@
 #include <iostream>
 #include "cocos2d.h"
 #include "AIPlayer.h"
+
+using namespace std;
 USING_NS_CC;
 
 class ChoiDon : public CCLayer,AIPlayerDelegate
 {
+private:
+        
+    int	m_AvaibleMoves[20];
+    
+    bool arrayAtPos[90];
 public:
     
     int m_Table[90];
@@ -38,6 +45,10 @@ public:
     int _newmovefrom; int _newmovedest;
     
     void aiplayerstart();
+    
+    void addShowPointAtPos(CCPoint pos);
+    void removePointAtpos();
+    void isNewmovedestInAtPos();
     
     void update();
     // touches events
