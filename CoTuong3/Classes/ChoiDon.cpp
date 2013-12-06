@@ -40,7 +40,7 @@ bool ChoiDon::init()
     
     computerAI = new AIPlayer();
     computerAI->setDelegate(this);
-    computerAI->setMaxPly(7);
+    computerAI->setMaxPly(6);
     computerAI->setSide(LIGHT);
     
     CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
