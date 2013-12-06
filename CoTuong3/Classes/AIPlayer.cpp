@@ -23,7 +23,7 @@ AIPlayer::AIPlayer(void) {
 
 void AIPlayer::setMaxPly(int sPly) {
     MAX_PLY = sPly;
-    type = 0;
+    type = 1;
 //	switch (sPly) {
 //        case 1:
 //            MAX_PLY = 2;
