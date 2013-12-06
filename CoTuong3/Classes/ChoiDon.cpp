@@ -38,6 +38,11 @@ bool ChoiDon::init()
         return false;
     }
     
+    computerAI = new AIPlayer();
+    computerAI->setDelegate(this);
+    computerAI->setMaxPly(7);
+    computerAI->setSide(LIGHT);
+    
     CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
     
     //add bg
@@ -65,21 +70,17 @@ void ChoiDon::createTable() {
 	for (int i = 0; i < 90; ++i) {
 		char type = FIRST_STATE[i];
 		if (type != EMPTY) {
-			Piece* piece = Piece::create(type, (i < 45 ? DARK : LIGHT));
+			Piece* piece = Piece::create(type, (FIRST_STATE_COLOR[i] ? LIGHT : DARK));
 			piece->setPosition(getPosAtIndex(i));
 			piece->setTag(i);
 			addChild(piece);
-			m_Colors[i] = (i < 45 ? DARK : LIGHT);
+			m_Colors[i] = FIRST_STATE_COLOR[i] ? LIGHT : DARK;
 		} else {
 			m_Colors[i] = EMPTY;
 		}
 		m_Table[i] = FIRST_STATE[i];
 	}
     this->schedule(schedule_selector(ChoiDon::update),1.0f);
-	AIPlayer::shared()->LoadBoard(m_Table, m_Colors);
-    AIPlayer::shared()->setSide(LIGHT);
-    AIPlayer::shared()->setDelegate(this);
-    AIPlayer::shared()->start();
 }
 
 CCPoint ChoiDon::getPosAtIndex(int index) {
@@ -103,9 +104,12 @@ int ChoiDon::getIndexFromPos(cocos2d::CCPoint pos) {
 
 
 bool ChoiDon::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
+	 CCLOG("tong time la: %i",sumtime);
+    if (getChildByTag(100)) {
+        return false;
+    }
     CCPoint tPosition = pTouch->getLocationInView();
     tPosition = CCDirector::sharedDirector()->convertToGL(tPosition);
-        
     int index = getIndexFromPos(tPosition);
     if (index >= 0) {
         /* Lay quan co o vi tri index neu co */
@@ -114,7 +118,6 @@ bool ChoiDon::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
             AIPlayerRunDone(_newmovedest, index);
             return false;
         }
-        
         removePointAtpos();
         
         if (piece->getSide() == DARK) {
@@ -158,6 +161,14 @@ void ChoiDon::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
     tPosition = CCDirector::sharedDirector()->convertToGL(tPosition);
     _newmovefrom = getIndexFromPos(tPosition);
     if (_newmovedest == _newmovefrom) {
+        for (int i = 0; i < this->getChildren()->count() ; i++) {
+            Piece *piece = dynamic_cast<Piece*>(this->getChildren()->objectAtIndex(i));
+            if (piece) {
+                if (piece->isSelected()){
+                    piece->setPosition(getPosAtIndex(_newmovedest));
+                }
+            }
+        }
         return;
     }
     AIPlayerRunDone(_newmovedest, _newmovefrom);
@@ -173,13 +184,12 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
     
     removeChildByTag(100, true);
     
-    if (isDARK){
+    if (!isDARK){
         if (!arrayAtPos[newmovedest]) {
             for (int i = 0; i < this->getChildren()->count() ; i++) {
                 Piece *piece = dynamic_cast<Piece*>(this->getChildren()->objectAtIndex(i));
                 if (piece) {
                     if (piece->getTag() == newmovefrom) {
-//                        CCMoveTo *moveto = CCMoveTo::create(0.1f, getPosAtIndex(newmovefrom));
                         piece->setPosition(getPosAtIndex(newmovefrom));
                     }
                 }
@@ -189,6 +199,9 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
             return;
         }
     }
+    
+    computerAI->stop();
+    
     for (int i = 0; i < this->getChildren()->count() ; i++) {
         Piece *piece = dynamic_cast<Piece*>(this->getChildren()->objectAtIndex(i));
         if (piece) {
@@ -218,9 +231,8 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
 }
 
 void ChoiDon::aiplayerstart(){
-    AIPlayer::shared()->LoadBoard(m_Table, m_Colors);
-    if (!isDARK) {
-        isDARK = true;
+    if (isDARK) {
+        isDARK = false;
         return;
     }
     
@@ -230,9 +242,9 @@ void ChoiDon::aiplayerstart(){
     sp->runAction(CCRepeatForever::create(rota));
     addChild(sp,100,100);
     
-    isDARK = false;
-    
-    AIPlayer::shared()->start();
+    isDARK = true;
+	computerAI->LoadBoard(m_Table, m_Colors);
+    computerAI->start();
     sumtime = 0;
 }
 

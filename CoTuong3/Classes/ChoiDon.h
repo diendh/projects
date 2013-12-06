@@ -19,7 +19,9 @@ USING_NS_CC;
 class ChoiDon : public CCLayer,AIPlayerDelegate
 {
 private:
-        
+    
+    AIPlayer *computerAI;
+    
     int	m_AvaibleMoves[20];
     
     bool arrayAtPos[90];

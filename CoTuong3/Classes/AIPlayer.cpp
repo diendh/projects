@@ -7,7 +7,7 @@ int materialnumber[2][7] = { { 5, 2, 2, 2, 2, 2, 1 }, { 5, 2, 2, 2, 2, 2, 1 } };
 
 #include "AIPlayer.h"
 
-//#define COCOS2D_DEBUG 1
+#define COCOS2D_DEBUG 1
 static AIPlayer m_SharedAIPlayer;
 
 AIPlayer* AIPlayer::shared() {
@@ -18,66 +18,71 @@ AIPlayer::AIPlayer(void) {
 	side = DARK;
 	xside = LIGHT;
 	m_Stop = true;
-	setMaxPly(8);
+	setMaxPly(4);
 }
 
-void AIPlayer::setMaxPly(int sPly)
-{
-    switch (sPly) {
-        case 1:
-            MAX_PLY = 2;
-            type = 1;
-            break;
-        case 2:
-            MAX_PLY = 2;
-            type = 1;
-            break;
-        case 3:
-            MAX_PLY = 4;
-            type = 1;
-            break;
-        case 4:
-            MAX_PLY = 4;
-            type = 1;
-            break;
-        case 5:
-            MAX_PLY = 5;
-            type = 1;
-            break;
-        case 6:
-            MAX_PLY = 6;
-            type = 1;
-            break;
-        case 7:
-            MAX_PLY = 7;
-            type = 1;
-            break;
-        case 8:
-            MAX_PLY = 8;
-            type = 1;
-            break;
-        case 9:
-            MAX_PLY = 9;
-            type = 1;
-            break;
-        case 10:
-            MAX_PLY = 10;
-            type = 1;
-            break;
-        case 11:
-            MAX_PLY = 11;
-            type = 1;
-            break;
-        default:
-            MAX_PLY = 5;
-            type = 1;
-            break;
-    }
+void AIPlayer::setMaxPly(int sPly) {
+    MAX_PLY = sPly;
+    type = 0;
+//	switch (sPly) {
+//        case 1:
+//            MAX_PLY = 2;
+//            type = 0;
+//            break;
+//        case 2:
+//            MAX_PLY = 2;
+//            type = 0;
+//            break;
+//        case 3:
+//            MAX_PLY = 4;
+//            type = 0;
+//            break;
+//        case 4:
+//            MAX_PLY = 4;
+//            type = 0;
+//            break;
+//        case 5:
+//            MAX_PLY = 5;
+//            type = 0;
+//            break;
+//        case 6:
+//            MAX_PLY = 5;
+//            type = 0;
+//            break;
+//        case 7:
+//            MAX_PLY = 5;
+//            type = 0;
+//            break;
+//        case 8:
+//            MAX_PLY = 5;
+//            type = 0;
+//            break;
+//        case 9:
+//            MAX_PLY = 5;
+//            type = 0;
+//            break;
+//        case 10:
+//            MAX_PLY = 5;
+//            type = 0;
+//            break;
+//        default:
+//            MAX_PLY = 5;
+//            type = 0;
+//            break;
+//	}
 }
 
 static void* runThread(void* obj) {
+    
 	AIPlayer* player = reinterpret_cast<AIPlayer*>(obj);
-	player->play();
+	if (player) {
+		printf("ai pthread play success");
+		player->play();
+		printf("AI pthread play after success");
+	} else {
+		printf("loi bo nho");
+	}
+	pthread_exit(0);
     
 	return NULL;
 }
@@ -86,41 +91,64 @@ AIPlayer::~AIPlayer(void) {
 }
 
 void AIPlayer::start() {
-    printf("AI for side: %d \n", side);
-	m_Stop = false;
-	pthread_create(&m_thread, NULL, &runThread, this);
+	printf("AI for side: %d", side);
+	if (m_Stop) {
+		m_Stop = false;
+		printf("run pthread");
+		pthread_create(&m_thread, NULL, &runThread, this);
+		printf("pthread after create method");
+	}
 }
 
 void AIPlayer::stop() {
 	if (!m_Stop) {
 		m_Stop = true;
 		int result = pthread_kill(m_thread, 0);
-		printf("cancel pthread result: %d \n", result);
+		printf("cancel pthread result: %d", result);
 	}
 }
 void AIPlayer::play() {
-	gen_begin[0] = 0;
+	printf("play in pthread is called");
+    //	gen_begin[0] = 0;
+	for (int i = 0; i < HIST_STACK; i++) {
+		gen_begin[i] = 0;
+		gen_end[i] = 0;
+		pv_length[i] = 0;
+	}
+	for (int i = 0; i < MOVE_STACK; i++) {
+		gen_dat[i].m.from = gen_dat[i].m.dest = -1;
+	}
 	ply = 0;
 	hdp = 0;
 	newmove.from = -1;
 	newmove.dest = -1;
-	int inf = INFINITY;
-	for (int i = 1; i <= MAX_PLY; ++i) {
-		AlphaBeta(-inf, inf, i);
-		if (newmove.from == -1)
-			break;
+	int inf = INFINIT;
+	printf("infinity: %d -inf: %d", inf, -inf);
+    //	for (int i = 1; i <= MAX_PLY; ++i) {
+    //		printf("ply at : %d", i);
+    //		AlphaBeta(-inf, inf, i);
+    //		if (newmove.from == -1)
+    //		{
+    //			printf("break ai at ply = %d", i);
+    //			break;
+    //		}
+    //	}
+	AlphaBeta(-inf, inf, MAX_PLY);
+    
+//	printf("Alphabeta done");
+    
+	if (_layerDelegate && !m_Stop) {
+		/*GameScene* game = dynamic_cast<GameScene*>(m_GameScene);*/
+        //		printf("new move from AI: %d %d", newmove.from, newmove.dest);
+		_layerDelegate->AIPlayerRunDone(newmove.from, newmove.dest);
 	}
-    printf("new move from AI: %d %d \n", newmove.from, newmove.dest);
-
-    if (_layerDelegate  && !m_Stop) {
-         _layerDelegate->AIPlayerRunDone(newmove.from,newmove.dest);
-    }
-   
+	m_Stop = true;
 }
 
 void AIPlayer::setSide(int _side) {
 	side = _side;
 	xside = 1 - side;
+	printf("AI set new side: %d", _side);
 }
 
 void AIPlayer::movePiece(int from, int dest) {
@@ -133,7 +161,9 @@ void AIPlayer::movePiece(int from, int dest) {
 
 int AIPlayer::AlphaBeta(int alpha, int beta, int depth) {
 	int i, j, value, best;
+    
 	if (m_Stop) {
+		printf("user cancel");
 		return 0;
 	}
 	if (depth == 0)
@@ -144,7 +174,7 @@ int AIPlayer::AlphaBeta(int alpha, int beta, int depth) {
 	if (follow_pv)
 		Check_pv();
 	Sort();
-	best = -INFINITY;
+	best = -INFINIT;
 	pv_length[ply] = ply;
     
 	for (i = gen_begin[ply]; i < gen_end[ply] && best < beta; i++) {
@@ -195,7 +225,7 @@ int AIPlayer::Quiescence(int alpha, int beta) {
 		Check_pv();
 	}
 	Sort();
-	best = -INFINITY;
+	best = -INFINIT;
 	pv_length[ply] = ply;
     
 	for (i = gen_begin[ply]; i < gen_end[ply] && best < beta; i++) {
@@ -224,6 +254,10 @@ int AIPlayer::Quiescence(int alpha, int beta) {
 void AIPlayer::Check_pv() {
 	int i;
 	for (follow_pv = false, i = gen_begin[ply]; i < gen_end[ply]; i++) {
+		if (i >= MOVE_STACK) {
+			printf("loi check pv");
+			break;
+		}
 		if (gen_dat[i].m.from == pv[0][ply].from
             && gen_dat[i].m.dest == pv[0][ply].dest) {
 			follow_pv = true;
@@ -268,7 +302,7 @@ void AIPlayer::LoadBoard(int piece1[], int color1[]) {
 	for (int i = 0; i < BOARD_SIZE; i++) {
 		piece[i] = piece1[i];
 		color[i] = color1[i];
-//		CCLOG("piece: %d color: %d", piece[i], color[i]);
+		//printf("piece: %d color: %d", piece[i], color[i]);
 	}
 }
 
@@ -276,6 +310,13 @@ bool AIPlayer::MakeMove(Move m) {
 	int from, dest, p;
 	from = m.from;
 	dest = m.dest;
+	if (dest < 0 || dest >= 90) {
+		printf("make move error");
+	}
+    
+	if (from < 0 || from >= 90) {
+		printf("make move error from");
+	}
 	p = piece[dest];
 	if (p != EMPTY)
 		materialnumber[xside][p]--;
@@ -300,6 +341,14 @@ void AIPlayer::UnMakeMove() {
 	xside = 1 - xside;
 	from = hist_dat[hdp].m.from;
 	dest = hist_dat[hdp].m.dest;
+    
+	if (dest < 0 || dest >= 90) {
+		printf("unmake move error");
+	}
+    
+	if (from < 0 || from >= 90) {
+		printf("unmake move error from");
+	}
 	piece[from] = piece[dest];
 	color[from] = color[dest];
 	piece[dest] = hist_dat[hdp].capture;
@@ -314,10 +363,10 @@ void AIPlayer::UnMakeMove() {
 bool AIPlayer::Gen() {
 	int i, j, k, n, p, x, y, t, fcannon;
 	gen_end[ply] = gen_begin[ply];
-	//CCLOG("gen begin: %d ply: %d", gen_begin[ply], ply);
+	//printf("gen begin: %d ply: %d", gen_begin[ply], ply);
 	for (i = 0; i < BOARD_SIZE; i++)
 		if (color[i] == side) {
-//			CCLOG("side: %d color: %d", side, color[i]);
+			//printf("side: %d color: %d", side, color[i]);
 			p = piece[i];
 			for (j = 0; j < 8; j++) {
 				if (offset[p][j] == 0)
@@ -383,7 +432,7 @@ bool AIPlayer::Gen() {
 }
 
 void AIPlayer::AILog() {
-	
+	printf("ply: %d gen: %d", ply, gen_end[ply]-gen_begin[ply]);
 }
 
 int* AIPlayer::getAllAvaiblePos(int pos) {
@@ -392,7 +441,7 @@ int* AIPlayer::getAllAvaiblePos(int pos) {
 	int _side = color[pos];
 	int p = piece[pos];
 	int _xside = (1 - _side);
-//	CCLOG("piece: %d color: %d", p, _side);
+    //	printf("piece: %d color: %d", p, _side);
 	int n, x, y, fcannon, t;
 	for (int j = 0; j < 8; j++) {
 		if (offset[p][j] == 0)
@@ -452,7 +501,7 @@ int* AIPlayer::getAllAvaiblePos(int pos) {
 			}
 		} /* for k */
 	} /* for j */
-	printf("count: %d \n", count);
+    //	printf("count: %d", count);
 	aMove[count] = -1;
     
 	return aMove;
@@ -542,8 +591,8 @@ bool AIPlayer::GenCapture() {
 	gen_end[ply + 1] = gen_end[ply];
 	gen_begin[ply + 1] = gen_end[ply];
     
-//	capbrandtotal += (unsigned long)gen_end[ply] - gen_begin[ply];
-//	if (gen_end[ply] > gen_begin[ply]) capgencount++;
+	//		capbrandtotal += (unsigned long)gen_end[ply] - gen_begin[ply];
+	//		if (gen_end[ply] > gen_begin[ply]) capgencount++;
 	return (gen_begin[ply] < gen_end[ply]);
 }
 
@@ -558,9 +607,9 @@ bool AIPlayer::MoveSave(int from, int dest) {
 	ms.dest = dest;
 	MakeMove(ms);
 	//nodecount--;
-    if (color[dest] == EMPTY) {
-        return false;
-    }
+	if (color[dest] == EMPTY) {
+		return false;
+	}
 	k = isKingSafe(color[dest]);
 	UnMakeMove();
 	return k;
@@ -572,16 +621,16 @@ bool AIPlayer::IsInCheck(int xside2) {
 
 bool AIPlayer::isKingSafe(int _side) {
 	int pos = getKingPosition(_side);
-	return !(Attack(pos, _side) || IsKingFace(pos));
+	return !(Attack(pos, _side));
 }
 
 int AIPlayer::getKingPosition(int _side) {
 	int i = 0, pos;
 	do {
-        if (_side > 1 || i > 8)
-        {
-            break;
-        }
+		if (_side > 1 || i > 8) {
+			printf("king pos: %d", pos);
+			break;
+		}
 		pos = kingpalace[_side][i];
 		i++;
 	} while (piece[pos] != KING);
@@ -641,12 +690,11 @@ bool AIPlayer::Attack(int pos, int side) {
 					}
 				if (color[y] != EMPTY)
 					fcannon = 1;
-			} else
-                if (color[y] != EMPTY) {
-                    if (color[y] == xsd && piece[y] == CANNON)
-                        return true;
-                    break;
-                }
+			} else if (color[y] != EMPTY) {
+				if (color[y] == xsd && piece[y] == CANNON)
+					return true;
+				break;
+			}
 		} // for k
 	} // for j
     
@@ -655,18 +703,16 @@ bool AIPlayer::Attack(int pos, int side) {
 		if (y == -1)
 			continue;
 		if (color[y]
-            == xsd&& piece[y]==KNIGHT && color[pos+knightcheck2[j]]==EMPTY)
-            return true;
+            == xsd&& piece[y]==KNIGHT && color[pos+knightcheck2[j]]==EMPTY)return true;
 	}
 	return false;
 }
 
-int* AIPlayer::getAttackPosForSide(int _side)
-{
-    int j, k, x, y, fcannon, sd, xsd;
-    int pos = getKingPosition(_side);
-    int* result = new int[5];
-    int i = 0;
+int* AIPlayer::getAttackPosForSide(int _side) {
+	int j, k, x, y, fcannon, sd, xsd;
+	int pos = getKingPosition(_side);
+	int* result = new int[5];
+	int i = 0;
 	sd = _side;
 	xsd = 1 - sd;
     
@@ -698,28 +744,26 @@ int* AIPlayer::getAttackPosForSide(int _side)
 					}
 				if (color[y] != EMPTY)
 					fcannon = 1;
-			} else
-                if (color[y] != EMPTY) {
-                    if (color[y] == xsd && piece[y] == CANNON)
-                        result[i++] = y;
-                    break;
-                }
+			} else if (color[y] != EMPTY) {
+				if (color[y] == xsd && piece[y] == CANNON)
+					result[i++] = y;
+				break;
+			}
 		} // for k
 	} // for j
     
 	for (j = 0; j < 8; j++) {				// Knight Check
-        x = mailbox90[pos];
+		x = mailbox90[pos];
 		y = mailbox182[x + offset[KNIGHT][j]];
 		if (y == -1)
 			continue;
 		if (color[y]
-            == xsd&& piece[y]==KNIGHT && color[pos+knightcheck2[j]]==EMPTY)
-            result[i++] = y;
+            == xsd&& piece[y]==KNIGHT && color[pos+knightcheck2[j]]==EMPTY)result[i++] = y;
 	}
     
-    for (; i < 5; ++i) {
-        result[i] = -1;
-    }
+	for (; i < 5; ++i) {
+		result[i] = -1;
+	}
     
 	return result;
 }
@@ -735,9 +779,9 @@ int AIPlayer::Eval() {
 	if (side == LIGHT)
 		s = -s;
     
-    if (type) {
-        return s;
-    }
+	if (type) {
+		return s;
+	}
 	return s + Bonous();
 }
 
@@ -779,5 +823,5 @@ int AIPlayer::Bonous() {
 
 
 void AIPlayer::setDelegate(AIPlayerDelegate *layer){
-    _layerDelegate = layer;
+       _layerDelegate = layer;
 }

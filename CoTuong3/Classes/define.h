@@ -57,9 +57,9 @@ static const int BOARD_SIZE = 90;
 
 #define MOVE_STACK  4096
 #define HIST_STACK  50
-#ifndef INFINITY
-#define INFINITY  5
-#endif
+//#ifndef INFINITY
+#define INFINIT  200000000
+//#endif
 
 
 /**
@@ -77,18 +77,18 @@ static const int FIRST_STATE[90] = {
     EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
     ROOK,   KNIGHT, ELEPHAN, BISHOP, KING,   BISHOP,   ELEPHAN,  KNIGHT, ROOK,
 };
-//static const int FIRST_STATE[90] = {
-//    EMPTY,   EMPTY, EMPTY, EMPTY, KING,   EMPTY,   EMPTY,  EMPTY, EMPTY,
-//    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
-//    EMPTY,  CANNON, EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    CANNON, EMPTY,
-//    PAWN,   EMPTY,  PAWN,    EMPTY,  PAWN,   EMPTY,    PAWN,     EMPTY,  PAWN,
-//    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
-//    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
-//    PAWN,   EMPTY,  PAWN,    EMPTY,  PAWN,   EMPTY,    PAWN,     EMPTY,  PAWN,
-//    EMPTY,  CANNON, EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    CANNON, EMPTY,
-//    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
-//    EMPTY,   EMPTY, EMPTY, EMPTY, KING,   EMPTY,   EMPTY,  EMPTY, EMPTY,
-//};
+static const bool FIRST_STATE_COLOR[90] = {
+    DARK,   DARK,   DARK,    DARK,   DARK,   DARK,     DARK,     DARK,  DARK,
+    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+    EMPTY,  DARK,   EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    DARK,  EMPTY,
+    DARK,   EMPTY,  DARK,    EMPTY,  DARK,   EMPTY,    DARK,     EMPTY,  DARK,
+    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+    LIGHT,   EMPTY,  LIGHT,    EMPTY,  LIGHT,   EMPTY,    LIGHT,     EMPTY,  LIGHT,
+    EMPTY,  LIGHT, EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    LIGHT, EMPTY,
+    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+    LIGHT,   LIGHT,  LIGHT,   LIGHT,  LIGHT,  LIGHT,    LIGHT,     LIGHT,   LIGHT,
+};
 /*Bang uoc luong gia tri cac quan co theo vi tri*/
 /**
  * @uml.property  name="pointtable" multiplicity="(0 -1)" dimension="3"
