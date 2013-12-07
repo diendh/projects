@@ -38,6 +38,18 @@ bool ChoiDon::init()
         return false;
     }
     
+    CCDictionary *pConfInfo;
+    // create this dictionary object within the content of our plist configuration file
+    pConfInfo = CCDictionary::createWithContentsOfFile("0.plist");
+   
+    int width, height;
+    
+    // Get data for the given key. As you can see below, you can get this data within the format you expect (string, int, float....)
+    //pBackgroundFile = pConfInfo->valueForKey(keyValue)->getCString()()
+    width = pConfInfo->valueForKey("WIDTH_01")->intValue();
+    height= pConfInfo->valueForKey("HEIGHT_01")->intValue();
+    CCLOG("%i %i",width,height);
+    
     computerAI = new AIPlayer();
     computerAI->setDelegate(this);
     computerAI->setMaxPly(6);

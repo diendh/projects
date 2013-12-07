@@ -192,3 +192,4 @@ void MenuGame::showkytien(){
     proreesstimer->setBarChangeRate(ccp(0,1));
     this->addChild(proreesstimer,30);
 }
+

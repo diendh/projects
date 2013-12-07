@@ -2,11 +2,6 @@
 #define __DEFINE_H__
 
 
-
-
-
-
-
 #define PAWN  0
 #define BISHOP 1
 #define ELEPHAN  2
@@ -15,6 +10,7 @@
 #define ROOK 5
 #define KING  6
 #define EMPTY 7
+
 #define CHIEU  20
 #define WIN  21
 #define START_GAME  22
@@ -89,6 +85,32 @@ static const bool FIRST_STATE_COLOR[90] = {
     EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
     LIGHT,   LIGHT,  LIGHT,   LIGHT,  LIGHT,  LIGHT,    LIGHT,     LIGHT,   LIGHT,
 };
+
+//static const int FIRST_STATE[90] = {
+//    EMPTY,   EMPTY, EMPTY, EMPTY, EMPTY,   EMPTY,   EMPTY,  EMPTY, EMPTY,
+//    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+//    EMPTY,  EMPTY, EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    CANNON, EMPTY,
+//    EMPTY,   EMPTY,  EMPTY,    EMPTY,  EMPTY,   EMPTY,    EMPTY,     EMPTY,  EMPTY,
+//    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+//    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+//    EMPTY,   EMPTY,  EMPTY,    EMPTY,  EMPTY,   EMPTY,    EMPTY,     EMPTY,  EMPTY,
+//    EMPTY,  CANNON, EMPTY,   BISHOP,  EMPTY,  BISHOP,    EMPTY,    CANNON, EMPTY,
+//    EMPTY,  EMPTY,  EMPTY,   KING,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+//    EMPTY,   EMPTY, ROOK, EMPTY, EMPTY,   EMPTY,   EMPTY,  PAWN, EMPTY,
+//};
+//static const bool FIRST_STATE_COLOR[90] = {
+//    DARK,   DARK,   DARK,    DARK,   DARK,   DARK,     DARK,     DARK,  DARK,
+//    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+//    EMPTY,  DARK,   EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    DARK,  EMPTY,
+//    DARK,   EMPTY,  DARK,    EMPTY,  DARK,   EMPTY,    DARK,     EMPTY,  DARK,
+//    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+//    EMPTY,  EMPTY,  EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+//    LIGHT,   EMPTY,  LIGHT,    EMPTY,  LIGHT,   EMPTY,    LIGHT,     EMPTY,  LIGHT,
+//    EMPTY,  LIGHT, EMPTY,   EMPTY,  EMPTY,  EMPTY,    EMPTY,    LIGHT, EMPTY,
+//    EMPTY,  EMPTY,  EMPTY,   LIGHT,  EMPTY,  EMPTY,    EMPTY,    EMPTY,  EMPTY,
+//    LIGHT,   LIGHT,  LIGHT,   LIGHT,  LIGHT,  LIGHT,    DARK,     DARK,   LIGHT,
+//};
+
 /*Bang uoc luong gia tri cac quan co theo vi tri*/
 /**
  * @uml.property  name="pointtable" multiplicity="(0 -1)" dimension="3"
