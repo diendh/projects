@@ -232,9 +232,10 @@
 		379BB9D317F03F3700829B88 /* GUIReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 379BB99117F03F3700829B88 /* GUIReader.cpp */; };
 		379BB9D417F03F3700829B88 /* SceneReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 379BB99317F03F3700829B88 /* SceneReader.cpp */; };
 		7855E0E1153FEF240059DD9A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7855E0DF153FEF240059DD9A /* Default.png */; };
+		BC3152AA18559C5800F02F03 /* 1.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC3152A918559C5800F02F03 /* 1.plist */; };
+		BC3152AC1855CAA100F02F03 /* 2.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC3152AB1855CAA100F02F03 /* 2.plist */; };
+		BC3152AE1855CF4100F02F03 /* 3.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC3152AD1855CF4100F02F03 /* 3.plist */; };
 		BC9C2E6418507EE30042F232 /* hourglass.png in Resources */ = {isa = PBXBuildFile; fileRef = BC9C2E6318507EE30042F232 /* hourglass.png */; };
-		BCA61B801852E5A8004AD802 /* ReadFileTXT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCA61B7E1852E5A8004AD802 /* ReadFileTXT.cpp */; };
-		BCA61B821852F096004AD802 /* 0.txt in Resources */ = {isa = PBXBuildFile; fileRef = BCA61B811852F096004AD802 /* 0.txt */; };
 		BCA61B891852F6B6004AD802 /* 0.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCA61B881852F6B6004AD802 /* 0.plist */; };
 		BCA7D0F5184C23AF00D043E3 /* CCSpriterX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0F2184C23AF00D043E3 /* CCSpriterX.cpp */; };
 		BCA7D122184C2C8F00D043E3 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D11C184C2C8F00D043E3 /* tinystr.cpp */; };
@@ -749,10 +750,10 @@
 		379BB99317F03F3700829B88 /* SceneReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneReader.cpp; sourceTree = "<group>"; };
 		379BB99417F03F3700829B88 /* SceneReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneReader.h; sourceTree = "<group>"; };
 		7855E0DF153FEF240059DD9A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
+		BC3152A918559C5800F02F03 /* 1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 1.plist; sourceTree = "<group>"; };
+		BC3152AB1855CAA100F02F03 /* 2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 2.plist; sourceTree = "<group>"; };
+		BC3152AD1855CF4100F02F03 /* 3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 3.plist; sourceTree = "<group>"; };
 		BC9C2E6318507EE30042F232 /* hourglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass.png; sourceTree = "<group>"; };
-		BCA61B7E1852E5A8004AD802 /* ReadFileTXT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReadFileTXT.cpp; path = ../Classes/ReadFileTXT.cpp; sourceTree = "<group>"; };
-		BCA61B7F1852E5A8004AD802 /* ReadFileTXT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReadFileTXT.h; path = ../Classes/ReadFileTXT.h; sourceTree = "<group>"; };
-		BCA61B811852F096004AD802 /* 0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 0.txt; sourceTree = "<group>"; };
 		BCA61B881852F6B6004AD802 /* 0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 0.plist; sourceTree = "<group>"; };
 		BCA7D0F2184C23AF00D043E3 /* CCSpriterX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCSpriterX.cpp; path = ../Classes/CCSpriterX.cpp; sourceTree = "<group>"; };
 		BCA7D0F3184C23AF00D043E3 /* CCSpriterX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCSpriterX.h; path = ../Classes/CCSpriterX.h; sourceTree = "<group>"; };
@@ -1776,7 +1777,8 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BCA61B811852F096004AD802 /* 0.txt */,
+				BC3152AD1855CF4100F02F03 /* 3.plist */,
+				BC3152AB1855CAA100F02F03 /* 2.plist */,
 				BC9C2E6318507EE30042F232 /* hourglass.png */,
 				BCA7D62B184EC090003D1370 /* demochibi */,
 				BCA7D184184C635C00D043E3 /* lua.plist */,
@@ -1797,6 +1799,7 @@
 				D4EF949915BD2D8B00D803EB /* Icon-57.png */,
 				D4EF949D15BD2D9600D803EB /* Icon-72.png */,
 				BCA61B881852F6B6004AD802 /* 0.plist */,
+				BC3152A918559C5800F02F03 /* 1.plist */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -1853,8 +1856,6 @@
 		BCB684D91848941B0092AB31 /* thuattoan */ = {
 			isa = PBXGroup;
 			children = (
-				BCA61B7E1852E5A8004AD802 /* ReadFileTXT.cpp */,
-				BCA61B7F1852E5A8004AD802 /* ReadFileTXT.h */,
 			);
 			name = thuattoan;
 			sourceTree = "<group>";
@@ -1953,8 +1954,10 @@
 				BCA7D185184C635C00D043E3 /* lua.plist in Resources */,
 				BCA7D62C184EC090003D1370 /* demochibi in Resources */,
 				BC9C2E6418507EE30042F232 /* hourglass.png in Resources */,
-				BCA61B821852F096004AD802 /* 0.txt in Resources */,
 				BCA61B891852F6B6004AD802 /* 0.plist in Resources */,
+				BC3152AA18559C5800F02F03 /* 1.plist in Resources */,
+				BC3152AC1855CAA100F02F03 /* 2.plist in Resources */,
+				BC3152AE1855CF4100F02F03 /* 3.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2188,7 +2191,6 @@
 				BCA7D123184C2C8F00D043E3 /* tinyxml.cpp in Sources */,
 				BCA7D124184C2C8F00D043E3 /* tinyxmlerror.cpp in Sources */,
 				BCA7D125184C2C8F00D043E3 /* tinyxmlparser.cpp in Sources */,
-				BCA61B801852E5A8004AD802 /* ReadFileTXT.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

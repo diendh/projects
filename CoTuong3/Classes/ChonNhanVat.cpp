@@ -32,6 +32,7 @@ bool ChonNhanVat::init()
     {
         return false;
     }
+    this->setKeypadEnabled(true);
     //add bg
     CCSprite* pBG = CCSprite::create("DauTruong/2-1.png");
     pBG->setPosition(ccp(240, 400));
@@ -82,4 +83,8 @@ void ChonNhanVat::menuNhanVat(cocos2d::CCObject *pSender){
             break;
     }
     CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.2, ChoseDauTruong::scene()));
+}
+
+void ChonNhanVat::keyBackClicked(){
+     CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.2, ChoseDauTruong::scene()));
 }

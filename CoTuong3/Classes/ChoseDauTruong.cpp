@@ -36,6 +36,7 @@ bool ChoseDauTruong::init()
     {
         return false;
     }
+    this->setKeypadEnabled(true);
     //add bg
     CCSprite* pBG = CCSprite::create("CheDoChoi/chedochoi1.png");
     pBG->setPosition(ccp(240, 400));
@@ -56,10 +57,14 @@ bool ChoseDauTruong::init()
 
 void ChoseDauTruong::menuDauDon(){
     AppDelegate::musicButton();
-    CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.2, ChoiDon::scene()));
+    CCDirector::sharedDirector()->replaceScene(CCTransitionTurnOffTiles::create(0.2, ChoiDon::scene()));
 }
 
 void ChoseDauTruong::menuChienDich(){
     AppDelegate::musicButton();
     CCDirector::sharedDirector()->replaceScene(CCTransitionFlipAngular::create(0.2, ChonNhanVat::scene()));
+}
+
+void ChoseDauTruong::keyBackClicked(){
+    CCDirector::sharedDirector()->replaceScene(CCTransitionFlipAngular::create(0.2, MenuGame::scene()));
 }

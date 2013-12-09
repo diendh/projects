@@ -628,7 +628,7 @@ int AIPlayer::getKingPosition(int _side) {
 	int i = 0, pos;
 	do {
 		if (_side > 1 || i > 8) {
-			printf("king pos: %d", pos);
+//			printf("king pos: %d", pos);
 			break;
 		}
 		pos = kingpalace[_side][i];

@@ -37,24 +37,13 @@ bool ChoiDon::init()
     {
         return false;
     }
-    
-    CCDictionary *pConfInfo;
-    // create this dictionary object within the content of our plist configuration file
-    pConfInfo = CCDictionary::createWithContentsOfFile("0.plist");
-   
-    int width, height;
-    
-    // Get data for the given key. As you can see below, you can get this data within the format you expect (string, int, float....)
-    //pBackgroundFile = pConfInfo->valueForKey(keyValue)->getCString()()
-    width = pConfInfo->valueForKey("WIDTH_01")->intValue();
-    height= pConfInfo->valueForKey("HEIGHT_01")->intValue();
-    CCLOG("%i %i",width,height);
-    
+
     computerAI = new AIPlayer();
     computerAI->setDelegate(this);
-    computerAI->setMaxPly(6);
+    computerAI->setMaxPly(7);
     computerAI->setSide(LIGHT);
     
+    this->setKeypadEnabled(true);
     CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
     
     //add bg
@@ -70,6 +59,13 @@ bool ChoiDon::init()
 //    animator->playAnimation("NewAnimation");
 //    this->addChild(animator, 0, 100);
 
+    CCMenuItemImage *pItemBack = CCMenuItemImage::create("MenuChinh/nut-thoat.png", "MenuChinh/nut-thoat2.png", "MenuChinh/nut-thoat2.png", this,menu_selector(ChoiDon::keyBackClicked));
+    pItemBack->setPosition(ccp(400, 50));
+    
+    CCMenu* pMenu = CCMenu::create(pItemBack, NULL);
+    pMenu->setPosition(CCPointZero);
+    addChild(pMenu, 1);
+
     return true;
 }
 
@@ -78,19 +74,44 @@ void ChoiDon::onExit() {
     CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
 }
 
+
+
 void ChoiDon::createTable() {
-	for (int i = 0; i < 90; ++i) {
-		char type = FIRST_STATE[i];
-		if (type != EMPTY) {
-			Piece* piece = Piece::create(type, (FIRST_STATE_COLOR[i] ? LIGHT : DARK));
-			piece->setPosition(getPosAtIndex(i));
-			piece->setTag(i);
+    for (int i = 0; i < 90; i++) {
+        m_Table[i] = EMPTY;
+    }
+    memset(m_Colors, 0, 90);
+    //read file plist
+    // create this dictionary object within the content of our plist configuration file
+   std::string m_sPlistFile = CCFileUtils::sharedFileUtils()->fullPathForFilename("3.plist");
+    
+   CCDictionary* pConfInfo = CCDictionary::createWithContentsOfFileThreadSafe(m_sPlistFile.c_str());
+    CCAssert( pConfInfo != NULL, "file not found");
+    CCArray* Xanh =(CCArray*) pConfInfo->objectForKey("XANH");
+    for (int i = 0; i<Xanh->count(); i++) {
+        std::string x = dynamic_cast<CCString*>(Xanh->objectAtIndex(i))->getCString();
+        short int k =atoi(x.substr(0,1).c_str()) + 9*atoi(x.substr(1,1).c_str());
+        m_Table[k]=atoi(x.substr(2,1).c_str());
+        m_Colors[k]=DARK;
+    }
+    CCArray* Do =(CCArray*) pConfInfo->objectForKey("DO");
+    for (int i = 0; i<Do->count(); i++) {
+        std::string x = dynamic_cast<CCString*>(Do->objectAtIndex(i))->getCString();
+        short int k =atoi(x.substr(0,1).c_str()) + 9*atoi(x.substr(1,1).c_str());
+        m_Table[k]=atoi(x.substr(2,1).c_str());
+        m_Colors[k]=LIGHT;
+    }
+    
+    //end file plist
+    
+	for (int j = 0; j < 90; j++) {
+		if (m_Table[j] != EMPTY) {
+			Piece* piece = Piece::create(m_Table[j], (m_Colors[j] ? LIGHT : DARK));
+			piece->setPosition(getPosAtIndex(j));
+			piece->setTag(j);
 			addChild(piece);
-			m_Colors[i] = FIRST_STATE_COLOR[i] ? LIGHT : DARK;
-		} else {
-			m_Colors[i] = EMPTY;
-		}
-		m_Table[i] = FIRST_STATE[i];
+		}else
+			m_Colors[j] = EMPTY;
 	}
     this->schedule(schedule_selector(ChoiDon::update),1.0f);
 }
@@ -293,4 +314,10 @@ void ChoiDon::removePointAtpos(){
         removeChildByTag(13258614, true);
     }
     
+}
+
+
+void ChoiDon::keyBackClicked(){
+    CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.2, ChoseDauTruong::scene()));
+
 }

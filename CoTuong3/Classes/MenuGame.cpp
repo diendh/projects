@@ -36,6 +36,7 @@ bool MenuGame::init()
     {
         return false;
     }
+    this->setKeypadEnabled(true);
     //add background
     CCSprite* pBG = CCSprite::create("MenuChinh/bg-menu.png");
     pBG->setPosition(ccp(240, 400));
@@ -148,23 +149,23 @@ void MenuGame::menuExit(CCObject* pSender){
 
 void MenuGame::updatethis(){
     for (int i = 0; i < this->getChildren()->count() ; i++) {
-        CCSprite *sp = dynamic_cast<CCSprite*>(this->getChildren()->objectAtIndex(i));
-        if (!sp) {
-            CCProgressTimer *proreesstimer = dynamic_cast<CCProgressTimer*>(this->getChildren()->objectAtIndex(i));
-            if (!proreesstimer) {
-                break;
-            }
-            proreesstimer->setPercentage(proreesstimer->getPercentage() + 1);
-            break;
+        
+        CCProgressTimer *proreesstimer = dynamic_cast<CCProgressTimer*>(this->getChildren()->objectAtIndex(i));
+        if (proreesstimer) {
+                proreesstimer->setPercentage(proreesstimer->getPercentage() + 1);
         }
-        if (sp->getTag() == 20) {
-            if (sp->getPositionY() >= 630) {
-                x = -2;
+        
+        CCSprite *sp = dynamic_cast<CCSprite*>(this->getChildren()->objectAtIndex(i));
+        if (sp) {
+            if (sp->getTag() == 20) {
+                if (sp->getPositionY() >= 630) {
+                    x = -2;
+                }
+                if (sp->getPositionY() <= 345) {
+                    x = 2;
+                }
+                sp->setPosition(ccp(sp->getPositionX(), sp->getPositionY() + x));
             }
-            if (sp->getPositionY() <= 345) {
-                x = 2;
-            }
-            sp->setPosition(ccp(sp->getPositionX(), sp->getPositionY() + x));
         }
     }
 }
@@ -193,3 +194,6 @@ void MenuGame::showkytien(){
     this->addChild(proreesstimer,30);
 }
 
+void MenuGame::keyBackClicked(){
+    exit(0);
+}

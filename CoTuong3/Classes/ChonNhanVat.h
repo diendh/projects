@@ -23,6 +23,8 @@ public:
     static cocos2d::CCScene* scene();
 
     void menuNhanVat(CCObject* pSender);
+    
+    virtual void keyBackClicked();
     // implement the "static node()" method manually
     CREATE_FUNC(ChonNhanVat);
 };
