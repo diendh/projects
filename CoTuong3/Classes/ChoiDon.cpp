@@ -41,6 +41,7 @@ bool ChoiDon::init()
     computerAI = new AIPlayer();
     computerAI->setDelegate(this);
 <<<<<<< HEAD
+
     computerAI->setMaxPly(4);
 =======
     computerAI->setMaxPly(6);
