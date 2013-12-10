@@ -13,33 +13,34 @@
 #include "cocos2d.h"
 #include "AIPlayer.h"
 
+
 using namespace std;
 USING_NS_CC;
 
 class ChoiDon : public CCLayer,AIPlayerDelegate
 {
 private:
+    int m_Table[90];
+	int m_Colors[90];
     
     AIPlayer *computerAI;
     
     int	m_AvaibleMoves[20];
     
     bool arrayAtPos[90];
-public:
     
-    int m_Table[90];
-	int m_Colors[90];
-
     int sumtime;
     
     bool isDARK;
+public:
+    
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
     void onExit();
     
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::CCScene* scene();
-    
+    void ReadFilePlist();
     void createTable();
     
     CCPoint getPosAtIndex(int index);
@@ -58,7 +59,10 @@ public:
     virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
     virtual void ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 
+    void menuBack();
     void AIPlayerRunDone(int newmovefrom,int newmovedest);
+    
+    virtual void keyBackClicked();
     
     CREATE_FUNC(ChoiDon);
 };

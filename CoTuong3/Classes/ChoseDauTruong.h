@@ -25,6 +25,7 @@ public:
     
     void menuChienDich();
 
+    virtual void keyBackClicked();
     // implement the "static node()" method manually
     CREATE_FUNC(ChoseDauTruong);
 };

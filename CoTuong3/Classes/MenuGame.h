@@ -34,6 +34,8 @@ public:
     void menuShare();
     void menuDownload();
     void menuExit(CCObject* pSender);
+    
+    virtual void keyBackClicked();
     // implement the "static node()" method manually
     CREATE_FUNC(MenuGame);
 };
