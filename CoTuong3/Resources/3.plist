@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NAME</key>
-    <string>Đạn vô hư phát</string>
+	<string>Đạn vô hư phát</string>
+	<key>LIMITNUMBER</key>
+	<integer>123</integer>
 	<key>DO</key>
 	<array>
 		<string>396</string>

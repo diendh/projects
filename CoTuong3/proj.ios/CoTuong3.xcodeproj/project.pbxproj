@@ -235,6 +235,7 @@
 		BC3152AA18559C5800F02F03 /* 1.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC3152A918559C5800F02F03 /* 1.plist */; };
 		BC3152AC1855CAA100F02F03 /* 2.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC3152AB1855CAA100F02F03 /* 2.plist */; };
 		BC3152AE1855CF4100F02F03 /* 3.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC3152AD1855CF4100F02F03 /* 3.plist */; };
+		BC7C91EC1856AD2F00646C25 /* 4.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC7C91EB1856AD2F00646C25 /* 4.plist */; };
 		BC9C2E6418507EE30042F232 /* hourglass.png in Resources */ = {isa = PBXBuildFile; fileRef = BC9C2E6318507EE30042F232 /* hourglass.png */; };
 		BCA61B891852F6B6004AD802 /* 0.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCA61B881852F6B6004AD802 /* 0.plist */; };
 		BCA7D0F5184C23AF00D043E3 /* CCSpriterX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0F2184C23AF00D043E3 /* CCSpriterX.cpp */; };
@@ -753,6 +754,7 @@
 		BC3152A918559C5800F02F03 /* 1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 1.plist; sourceTree = "<group>"; };
 		BC3152AB1855CAA100F02F03 /* 2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 2.plist; sourceTree = "<group>"; };
 		BC3152AD1855CF4100F02F03 /* 3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 3.plist; sourceTree = "<group>"; };
+		BC7C91EB1856AD2F00646C25 /* 4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 4.plist; sourceTree = "<group>"; };
 		BC9C2E6318507EE30042F232 /* hourglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass.png; sourceTree = "<group>"; };
 		BCA61B881852F6B6004AD802 /* 0.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 0.plist; sourceTree = "<group>"; };
 		BCA7D0F2184C23AF00D043E3 /* CCSpriterX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCSpriterX.cpp; path = ../Classes/CCSpriterX.cpp; sourceTree = "<group>"; };
@@ -1800,6 +1802,7 @@
 				D4EF949D15BD2D9600D803EB /* Icon-72.png */,
 				BCA61B881852F6B6004AD802 /* 0.plist */,
 				BC3152A918559C5800F02F03 /* 1.plist */,
+				BC7C91EB1856AD2F00646C25 /* 4.plist */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -1958,6 +1961,7 @@
 				BC3152AA18559C5800F02F03 /* 1.plist in Resources */,
 				BC3152AC1855CAA100F02F03 /* 2.plist in Resources */,
 				BC3152AE1855CF4100F02F03 /* 3.plist in Resources */,
+				BC7C91EC1856AD2F00646C25 /* 4.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
