@@ -40,15 +40,7 @@ bool ChoiDon::init()
 
     computerAI = new AIPlayer();
     computerAI->setDelegate(this);
-<<<<<<< HEAD
-
-    computerAI->setMaxPly(4);
-
-    computerAI->setMaxPly(6);
-
-=======
     computerAI->setMaxPly(7);
->>>>>>> ec4d725a6b17bda53a12cf974a2d07158d2ad8b6
     computerAI->setSide(LIGHT);
     
     this->setKeypadEnabled(true);
@@ -91,7 +83,11 @@ void ChoiDon::createTable() {
     memset(m_Colors, 0, 90);
     //read file plist
     // create this dictionary object within the content of our plist configuration file
-   std::string m_sPlistFile = CCFileUtils::sharedFileUtils()->fullPathForFilename("3.plist");
+    int plist = arc4random()%22;
+//    plist = 8;
+    CCString *filename = CCString::createWithFormat("Plist/%i.plist",plist);
+    CCLOG("%s",filename->getCString());
+   std::string m_sPlistFile = CCFileUtils::sharedFileUtils()->fullPathForFilename(filename->getCString());
     
    CCDictionary* pConfInfo = CCDictionary::createWithContentsOfFileThreadSafe(m_sPlistFile.c_str());
     CCAssert( pConfInfo != NULL, "file not found");
@@ -168,12 +164,9 @@ bool ChoiDon::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
             int* moves = AIPlayer::shared()->getAllAvaiblePos(index);
             
             for (int i = 0; i < 20; i++) {
-                m_AvaibleMoves[i] = moves[i];
-                
                 if (moves[i] == -1) {
                     break;
                 }
-                
                 addShowPointAtPos(getPosAtIndex(moves[i]));
             }
             delete[] moves;
@@ -287,6 +280,8 @@ void ChoiDon::aiplayerstart(){
 	computerAI->LoadBoard(m_Table, m_Colors);
     computerAI->start();
     sumtime = 0;
+    
+    
 }
 
 void ChoiDon::update(){
