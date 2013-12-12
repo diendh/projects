@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NAME</key>
+    <string>Hoài Hải Chiến Dịch</string>
+	<key>DO</key>
+	<array>
+		<string>783</string>
+		<string>072</string>
+		<string>476</string>
+	    <string>571</string>
+		<string>260</string>
+		<string>460</string>
+		<string>660</string>
+		<string>255</string>
+		<string>354</string>
+		<string>652</string>
+		<string>745</string>
+		<string>133</string>
+		<string>234</string>
+		<string>610</string>
+	</array>
+	<key>XANH</key>
+	<array>
+		<string>170</string>
+		<string>273</string>
+		<string>063</string>
+		<string>765</string>
+		<string>055</string>
+		<string>450</string>
+		<string>240</string>
+		<string>321</string>
+		<string>426</string>
+		<string>414</string>
+		<string>602</string>
+		<string>704</string>
+	</array>
+</dict>
+</plist>
