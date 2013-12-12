@@ -84,7 +84,7 @@ void ChoiDon::createTable() {
     //read file plist
     // create this dictionary object within the content of our plist configuration file
     int plist = arc4random()%22;
-//    plist = 8;
+//    plist = 12;
     CCString *filename = CCString::createWithFormat("Plist/%i.plist",plist);
     CCLOG("%s",filename->getCString());
    std::string m_sPlistFile = CCFileUtils::sharedFileUtils()->fullPathForFilename(filename->getCString());
