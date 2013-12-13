@@ -12,12 +12,10 @@
 #include <iostream>
 #include "cocos2d.h"
 #include "AIPlayer.h"
-
-
 using namespace std;
 USING_NS_CC;
 
-class ChoiDon : public CCLayer,AIPlayerDelegate
+class ChoiDon : public CCLayer,public AIPlayerDelegate
 {
 private:
     int m_Table[90];
@@ -32,6 +30,7 @@ private:
     int sumtime;
     
     bool isDARK;
+    
 public:
     
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
@@ -53,6 +52,8 @@ public:
     void removePointAtpos();
     void isNewmovedestInAtPos();
     
+    void doAfterMoveDone();
+    
     void update();
     // touches events
     virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
@@ -63,6 +64,9 @@ public:
     void AIPlayerRunDone(int newmovefrom,int newmovedest);
     
     virtual void keyBackClicked();
+    
+    void thang();
+    void thua();
     
     CREATE_FUNC(ChoiDon);
 };

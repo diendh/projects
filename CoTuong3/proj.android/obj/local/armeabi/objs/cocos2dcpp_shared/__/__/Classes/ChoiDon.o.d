@@ -205,7 +205,9 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/ChoiDon.o: \
  jni/../../Classes/AIPlayer.h jni/../../Classes/define.h \
  jni/../../Classes/Piece.h jni/../../Classes/ChoseDauTruong.h \
  jni/../../Classes/CCSpriterX.h jni/../../Classes/tinyxml/tinyxml.h \
- jni/../../Classes/tinyxml/tinystr.h
+ jni/../../Classes/tinyxml/tinystr.h jni/../../Classes/UserDataEncrypt.h \
+ /Volumes/DATA/Android/cocos2d-x-2.2.1/projects/CoTuong3/proj.android/../../../CocosDenshion/android/../include/SimpleAudioEngine.h \
+ /Volumes/DATA/Android/cocos2d-x-2.2.1/projects/CoTuong3/proj.android/../../../CocosDenshion/android/../include/Export.h
 
 jni/../../Classes/ChoiDon.h:
 
@@ -626,3 +628,9 @@ jni/../../Classes/CCSpriterX.h:
 jni/../../Classes/tinyxml/tinyxml.h:
 
 jni/../../Classes/tinyxml/tinystr.h:
+
+jni/../../Classes/UserDataEncrypt.h:
+
+/Volumes/DATA/Android/cocos2d-x-2.2.1/projects/CoTuong3/proj.android/../../../CocosDenshion/android/../include/SimpleAudioEngine.h:
+
+/Volumes/DATA/Android/cocos2d-x-2.2.1/projects/CoTuong3/proj.android/../../../CocosDenshion/android/../include/Export.h:

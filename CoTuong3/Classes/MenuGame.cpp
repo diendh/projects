@@ -98,6 +98,7 @@ bool MenuGame::init()
     CCParticleSystem* lua = CCParticleSystemQuad::create("lua.plist");
     lua->setPosition(ccp(400, 170));
     this->addChild( lua, 5 );
+
 //    CCParticleSystem* lua2 = CCParticleSystemQuad::create("lua.plist");
 //       lua2->setPosition(ccp(80, 170));
 //       this->addChild( lua2, 5 );

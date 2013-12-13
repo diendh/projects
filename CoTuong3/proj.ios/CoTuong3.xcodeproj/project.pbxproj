@@ -233,6 +233,8 @@
 		379BB9D417F03F3700829B88 /* SceneReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 379BB99317F03F3700829B88 /* SceneReader.cpp */; };
 		7855E0E1153FEF240059DD9A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7855E0DF153FEF240059DD9A /* Default.png */; };
 		BC1FF5B918584D90006B23C7 /* Plist in Resources */ = {isa = PBXBuildFile; fileRef = BC1FF5B818584D90006B23C7 /* Plist */; };
+		BC5BADD0185B021400272946 /* lost.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC5BADCE185B021400272946 /* lost.plist */; };
+		BC5BADD1185B021400272946 /* win.plist in Resources */ = {isa = PBXBuildFile; fileRef = BC5BADCF185B021400272946 /* win.plist */; };
 		BC9C2E6418507EE30042F232 /* hourglass.png in Resources */ = {isa = PBXBuildFile; fileRef = BC9C2E6318507EE30042F232 /* hourglass.png */; };
 		BCA7D0F5184C23AF00D043E3 /* CCSpriterX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D0F2184C23AF00D043E3 /* CCSpriterX.cpp */; };
 		BCA7D122184C2C8F00D043E3 /* tinystr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCA7D11C184C2C8F00D043E3 /* tinystr.cpp */; };
@@ -748,6 +750,8 @@
 		379BB99417F03F3700829B88 /* SceneReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneReader.h; sourceTree = "<group>"; };
 		7855E0DF153FEF240059DD9A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
 		BC1FF5B818584D90006B23C7 /* Plist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Plist; sourceTree = "<group>"; };
+		BC5BADCE185B021400272946 /* lost.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = lost.plist; sourceTree = "<group>"; };
+		BC5BADCF185B021400272946 /* win.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = win.plist; sourceTree = "<group>"; };
 		BC9C2E6318507EE30042F232 /* hourglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourglass.png; sourceTree = "<group>"; };
 		BCA7D0F2184C23AF00D043E3 /* CCSpriterX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCSpriterX.cpp; path = ../Classes/CCSpriterX.cpp; sourceTree = "<group>"; };
 		BCA7D0F3184C23AF00D043E3 /* CCSpriterX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCSpriterX.h; path = ../Classes/CCSpriterX.h; sourceTree = "<group>"; };
@@ -1771,6 +1775,8 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BC5BADCE185B021400272946 /* lost.plist */,
+				BC5BADCF185B021400272946 /* win.plist */,
 				BC1FF5B818584D90006B23C7 /* Plist */,
 				BC9C2E6318507EE30042F232 /* hourglass.png */,
 				BCA7D62B184EC090003D1370 /* demochibi */,
@@ -1946,6 +1952,8 @@
 				BCA7D62C184EC090003D1370 /* demochibi in Resources */,
 				BC9C2E6418507EE30042F232 /* hourglass.png in Resources */,
 				BC1FF5B918584D90006B23C7 /* Plist in Resources */,
+				BC5BADD0185B021400272946 /* lost.plist in Resources */,
+				BC5BADD1185B021400272946 /* win.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

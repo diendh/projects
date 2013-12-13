@@ -11,7 +11,10 @@
 #include "Piece.h"
 #include "ChoseDauTruong.h"
 #include "CCSpriterX.h"
+#include "UserDataEncrypt.h"
+#include "SimpleAudioEngine.h"
 
+using namespace CocosDenshion;
 
 CCScene* ChoiDon::scene()
 {
@@ -37,8 +40,12 @@ bool ChoiDon::init()
     {
         return false;
     }
-
-    computerAI = new AIPlayer();
+    
+    if (DataEncrypt::share()->getBoolForKey("music", true))
+    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/music/main2.mp3", true);
+    
+        
+    computerAI = new AIPlayer;
     computerAI->setDelegate(this);
     computerAI->setMaxPly(7);
     computerAI->setSide(LIGHT);
@@ -71,6 +78,17 @@ bool ChoiDon::init()
 
 void ChoiDon::onExit() {
     CCLayer::onExit();
+    
+    computerAI->stop();
+    AIPlayer::shared()->stop();
+    computerAI->setDelegate(NULL);
+    AIPlayer::shared()->setDelegate(NULL);
+    CC_SAFE_DELETE(computerAI);
+    
+    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/2/Binh-thuong.mp3", true);
+    if (!DataEncrypt::share()->getBoolForKey("music", true))
+        SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+    
     CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
 }
 
@@ -84,7 +102,7 @@ void ChoiDon::createTable() {
     //read file plist
     // create this dictionary object within the content of our plist configuration file
     int plist = arc4random()%22;
-//    plist = 12;
+    plist = 1;
     CCString *filename = CCString::createWithFormat("Plist/%i.plist",plist);
     CCLOG("%s",filename->getCString());
    std::string m_sPlistFile = CCFileUtils::sharedFileUtils()->fullPathForFilename(filename->getCString());
@@ -141,7 +159,7 @@ int ChoiDon::getIndexFromPos(cocos2d::CCPoint pos) {
 
 
 bool ChoiDon::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
-	 CCLOG("tong time la: %i",sumtime);
+    
     if (getChildByTag(100)) {
         return false;
     }
@@ -215,7 +233,6 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
     if (!this->getChildren()) {
         return;
     }
-    
     removeChildByTag(100, true);
     
     if (!isDARK){
@@ -261,7 +278,59 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
             }
         }
     }
-    removePointAtpos();    
+    
+    removePointAtpos();
+    
+    doAfterMoveDone();
+}
+
+void ChoiDon::doAfterMoveDone() {
+    AIPlayer::shared()->LoadBoard(m_Table, m_Colors);
+    if (AIPlayer::shared()->IsInCheck(LIGHT)) {
+        AIPlayer::shared()->setSide(LIGHT);
+        if (!AIPlayer::shared()->Gen()) {
+            if (DataEncrypt::share()->getBoolForKey("music", true))
+                SimpleAudioEngine::sharedEngine()->playEffect("Sound/music/win.mp3", false);
+            CCLOG("Thang!");
+             scheduleOnce(schedule_selector(ChoiDon::thang), 5);
+            CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+        }
+        else{
+            CCLOG("chieu");
+        }
+    }
+    else if (AIPlayer::shared()->IsInCheck(DARK)) {
+        AIPlayer::shared()->setSide(DARK);
+        if (!AIPlayer::shared()->Gen()) {
+            if (DataEncrypt::share()->getBoolForKey("music", true))
+                SimpleAudioEngine::sharedEngine()->playEffect("Sound/music/lose.mp3", false);
+          	CCLOG("thua!");
+            
+            computerAI->stop();
+            AIPlayer::shared()->stop();
+            computerAI->setDelegate(NULL);
+            AIPlayer::shared()->setDelegate(NULL);
+            scheduleOnce(schedule_selector(ChoiDon::thua), 5);
+         CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+        }
+        else{
+            CCLOG("chieu");
+        }
+    }else{
+        CCLOG("ko chieu");
+    }
+}
+
+void ChoiDon::thang(){
+    CCParticleSystem* thua = CCParticleSystemQuad::create("win.plist");
+    thua->setPosition(ccp(240, 400));
+    addChild( thua, 999 );
+}
+
+void ChoiDon::thua(){
+    CCParticleSystem* thua = CCParticleSystemQuad::create("lua.plist");
+    thua->setPosition(ccp(240, 400));
+    addChild( thua, 999 );
 }
 
 void ChoiDon::aiplayerstart(){
