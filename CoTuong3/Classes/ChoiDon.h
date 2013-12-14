@@ -2,7 +2,7 @@
 //  ChoiDon.h
 //  CoTuong3
 //
-//  Created by Đỗ Hữu Điển on 11/28/13.
+//  Created by ����� H���u ��i���n on 11/28/13.
 //
 //
 
@@ -15,6 +15,7 @@
 using namespace std;
 USING_NS_CC;
 
+class AIPlayer;
 class ChoiDon : public CCLayer,public AIPlayerDelegate
 {
 private:
@@ -30,7 +31,7 @@ private:
     int sumtime;
     
     bool isDARK;
-    
+
 public:
     
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
@@ -65,6 +66,7 @@ public:
     
     virtual void keyBackClicked();
     
+    void chieutuong();
     void thang();
     void thua();
     
