@@ -102,6 +102,7 @@ static AppDelegate s_sharedApplication;
      */
 }
 
+
 - (void)dealloc {
     [window release];
     [super dealloc];
