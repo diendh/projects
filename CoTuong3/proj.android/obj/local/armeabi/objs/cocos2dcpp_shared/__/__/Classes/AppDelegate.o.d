@@ -205,9 +205,7 @@ obj/local/armeabi/objs/cocos2dcpp_shared/__/__/Classes/AppDelegate.o: \
  /Volumes/DATA/Android/cocos2d-x-2.2.1/projects/CoTuong3/proj.android/../../../cocos2dx/support/component/CCComponentContainer.h \
  /Volumes/DATA/Android/cocos2d-x-2.2.1/projects/CoTuong3/proj.android/../../../CocosDenshion/android/../include/SimpleAudioEngine.h \
  /Volumes/DATA/Android/cocos2d-x-2.2.1/projects/CoTuong3/proj.android/../../../CocosDenshion/android/../include/Export.h \
- jni/../../Classes/UserDataEncrypt.h jni/../../Classes/MenuGame.h \
- jni/../../Classes/ChoiDon.h jni/../../Classes/AIPlayer.h \
- jni/../../Classes/define.h
+ jni/../../Classes/UserDataEncrypt.h jni/../../Classes/MenuGame.h
 
 jni/../../Classes/AppDelegate.h:
 
@@ -624,9 +622,3 @@ jni/../../Classes/AppDelegate.h:
 jni/../../Classes/UserDataEncrypt.h:
 
 jni/../../Classes/MenuGame.h:
-
-jni/../../Classes/ChoiDon.h:
-
-jni/../../Classes/AIPlayer.h:
-
-jni/../../Classes/define.h:

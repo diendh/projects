@@ -23,7 +23,7 @@ AIPlayer::AIPlayer(void) {
 
 void AIPlayer::setMaxPly(int sPly) {
     MAX_PLY = sPly;
-    type = 1;
+    type = 0;
 //	switch (sPly) {
 //        case 1:
 //            MAX_PLY = 2;
@@ -363,10 +363,10 @@ void AIPlayer::UnMakeMove() {
 bool AIPlayer::Gen() {
 	int i, j, k, n, p, x, y, t, fcannon;
 	gen_end[ply] = gen_begin[ply];
-	//printf("gen begin: %d ply: %d", gen_begin[ply], ply);
+//	printf("gen begin: %d ply: %d", gen_begin[ply], ply);
 	for (i = 0; i < BOARD_SIZE; i++)
 		if (color[i] == side) {
-			//printf("side: %d color: %d", side, color[i]);
+//			printf("side: %d color: %d", side, color[i]);
 			p = piece[i];
 			for (j = 0; j < 8; j++) {
 				if (offset[p][j] == 0)

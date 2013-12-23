@@ -1,5 +1,4 @@
 #include "AppDelegate.h"
-#include "MenuGame.h"
 #include "ChoiDon.h"
 
 USING_NS_CC;
@@ -59,5 +58,5 @@ void AppDelegate::applicationWillEnterForeground() {
 
 void AppDelegate::musicButton(){
     if (DataEncrypt::share()->getBoolForKey("music", true))
-        SimpleAudioEngine::sharedEngine()->playEffect("Sound/4/S_Button.mp3", false);
+        SimpleAudioEngine::sharedEngine()->playEffect("Sound/S_Button.mp3", false);
 }

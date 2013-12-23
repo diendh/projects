@@ -36,6 +36,16 @@ bool ChoseDauTruong::init()
     {
         return false;
     }
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    CCMenuItemImage *pItemExit = CCMenuItemImage::create("MenuChinh/nut-thoat.png", "MenuChinh/nut-thoat2.png", "MenuChinh/nut-thoat2.png", this,menu_selector(ChoseDauTruong::keyBackClicked));
+    pItemExit->setPosition(ccp(450, 770));
+   
+    CCMenu* pMenu = CCMenu::create(pItemExit, NULL);
+    pMenu->setPosition(CCPointZero);
+    addChild(pMenu, 1);
+#endif
+    
     this->setKeypadEnabled(true);
     //add bg
     CCSprite* pBG = CCSprite::create("CheDoChoi/chedochoi1.png");

@@ -10,7 +10,6 @@
 #include "SimpleAudioEngine.h"
 #include "UserDataEncrypt.h"
 #include "AppDelegate.h"
-
 using namespace CocosDenshion;
 
 CCScene* MenuGame::scene()
@@ -91,7 +90,7 @@ bool MenuGame::init()
     pBG->addChild(pMenu, 1);
     
     //am thanh game
-     SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/2/Binh-thuong.mp3", true);
+     SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/M_Soundtrack _01.mp3", true);
      if (!DataEncrypt::share()->getBoolForKey("music", true))
         SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
     
@@ -112,17 +111,6 @@ void MenuGame::menuPlay(){
 }
 
 void MenuGame::menuInfo(){
-    
-    for (int i = 0; i < this->getChildren()->count() ; i++) {
-        CCNode *node = dynamic_cast<CCNode*>(getChildren()->objectAtIndex(i));
-        if (node) {
-            node->setVisible(false);
-        }
-    }
-    
-//    CCAlertView* alv = CCAlertView::create("tile", "mess", "cannel", "oke", this,  callfuncO_selector(MenuGame::oke), callfuncO_selector(MenuGame::can));
-//    this->addChild(alv);
-    
     AppDelegate::musicButton();
 }
 void MenuGame::menuShare(){
@@ -182,10 +170,8 @@ void MenuGame::showdauan(){
 }
 
 void MenuGame::showkytien(){
-
     if (DataEncrypt::share()->getBoolForKey("music", true))
-     SimpleAudioEngine::sharedEngine()->playEffect("Sound/2/An-quan.mp3", false);
-
+        SimpleAudioEngine::sharedEngine()->playEffect("Sound/S_DongAn.mp3", false);
     CCSprite* pkytien = CCSprite::create("MenuChinh/chukytien.png");
     CCProgressTimer *proreesstimer = CCProgressTimer::create(pkytien);
     proreesstimer->setType(kCCProgressTimerTypeBar);

@@ -42,7 +42,7 @@ bool ChoiDon::init()
     }
     
     if (DataEncrypt::share()->getBoolForKey("music", true))
-    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/music/main2.mp3", true);
+    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/M_Soundtrack_02.mp3", true);
     
         
     computerAI = new AIPlayer;
@@ -85,7 +85,7 @@ void ChoiDon::onExit() {
     AIPlayer::shared()->setDelegate(NULL);
     CC_SAFE_DELETE(computerAI);
     
-    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/2/Binh-thuong.mp3", true);
+    SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/M_Soundtrack _01.mp3", true);
     if (!DataEncrypt::share()->getBoolForKey("music", true))
         SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
     
@@ -102,7 +102,7 @@ void ChoiDon::createTable() {
     //read file plist
     // create this dictionary object within the content of our plist configuration file
     int plist = arc4random()%22;
-    plist = 1;
+    plist = 30;
     CCString *filename = CCString::createWithFormat("Plist/%i.plist",plist);
     CCLOG("%s",filename->getCString());
    std::string m_sPlistFile = CCFileUtils::sharedFileUtils()->fullPathForFilename(filename->getCString());
@@ -159,7 +159,7 @@ int ChoiDon::getIndexFromPos(cocos2d::CCPoint pos) {
 
 
 bool ChoiDon::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
-
+    
     CCPoint tPosition = pTouch->getLocationInView();
     tPosition = CCDirector::sharedDirector()->convertToGL(tPosition);
     int index = getIndexFromPos(tPosition);
@@ -253,6 +253,8 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
         Piece *piece = dynamic_cast<Piece*>(this->getChildren()->objectAtIndex(i));
         if (piece) {
             if (piece->getTag() == newmovedest) {
+                if (DataEncrypt::share()->getBoolForKey("music", true))
+                    SimpleAudioEngine::sharedEngine()->playEffect("Sound/S_AnQuan.mp3", false);
                 piece->removeFromParent();
             }
         }
@@ -265,8 +267,10 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
                 piece->setTag(newmovedest);
 //                piece->setPosition(getPosAtIndex(newmovedest));
                 CCMoveTo *moveto = CCMoveTo::create(0.5f, getPosAtIndex(newmovedest));
+                CCScaleTo *scaleto = CCScaleTo::create(0.25f, 2);
+                CCScaleTo *scaleto2 = CCScaleTo::create(0.25f, 1);
                 piece->runAction(CCSequence::create(moveto,CCCallFuncN::create(this,callfuncN_selector(ChoiDon::aiplayerstart)),NULL));
-//                piece->runAction(moveto);
+                piece->runAction(CCSequence::create(scaleto,scaleto2,NULL));
                 m_Table[newmovedest] = m_Table[newmovefrom];
                 m_Colors[newmovedest] = m_Colors[newmovefrom];
                 m_Table[newmovefrom] = EMPTY;
@@ -283,56 +287,64 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
 void ChoiDon::doAfterMoveDone() {
     AIPlayer::shared()->LoadBoard(m_Table, m_Colors);
     if (AIPlayer::shared()->IsInCheck(LIGHT)) {
+        
         AIPlayer::shared()->setSide(LIGHT);
         if (!AIPlayer::shared()->Gen()) {
-            CCLOG("Thang!");
-             scheduleOnce(schedule_selector(ChoiDon::thang), 0.5);
-            CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+            //			CCLOG("light chieu het!");
+            scheduleOnce(schedule_selector(ChoiDon::thang), 0.5);
+            
+        } else {
+//            checkKing(true);
         }
-        else{
-        	 CCLOG("chieu");
-        	scheduleOnce(schedule_selector(ChoiDon::chieutuong), 0.5);
-        }
-    }
-    else if (AIPlayer::shared()->IsInCheck(DARK)) {
+    } else if (AIPlayer::shared()->IsInCheck(DARK)) {
         AIPlayer::shared()->setSide(DARK);
         if (!AIPlayer::shared()->Gen()) {
-        	AIPlayer::shared()->stop();
-          	CCLOG("thua!");
+            //			CCLOG("dark chieu het");
             scheduleOnce(schedule_selector(ChoiDon::thua), 0.5);
-         CCDirector::sharedDirector()->getTouchDispatcher()->removeDelegate(this);
+        } else {
+//            checkKing(false);
         }
-        else{
-            CCLOG("chieu");
-            scheduleOnce(schedule_selector(ChoiDon::chieutuong), 0.5);
+    } else {
+        AIPlayer::shared()->setSide(LIGHT);
+        if (!isDARK && !AIPlayer::shared()->Gen()) {
+            //			CCLOG("light thua!");
+        scheduleOnce(schedule_selector(ChoiDon::thang), 0.5);
+        } else {
+            AIPlayer::shared()->setSide(DARK);
+            if (isDARK && !AIPlayer::shared()->Gen()) {
+                //				CCLOG("dark thua!");
+            scheduleOnce(schedule_selector(ChoiDon::thua), 0.5);
+            }
         }
-    }else{
-        CCLOG("ko chieu");
     }
+
 }
 
 void ChoiDon::chieutuong(){
-	 if (DataEncrypt::share()->getBoolForKey("music", true))
-		  SimpleAudioEngine::sharedEngine()->playEffect("Sound/2/Bichieutuong.mp3", false);
+//	 if (DataEncrypt::share()->getBoolForKey("music", true))
+//		  SimpleAudioEngine::sharedEngine()->playEffect("Sound/2/Bichieutuong.mp3", false);
 }
 
 void ChoiDon::thang(){
-	 if (DataEncrypt::share()->getBoolForKey("music", true))
-	  SimpleAudioEngine::sharedEngine()->playEffect("Sound/music/win.mp3", false);
+//	 if (DataEncrypt::share()->getBoolForKey("music", true))
+//	  SimpleAudioEngine::sharedEngine()->playEffect("Sound/music/win.mp3", false);
     CCParticleSystem* thang = CCParticleSystemQuad::create("win.plist");
     thang->setPosition(ccp(240, 400));
-    addChild( thang, 999 );
+    CCDirector::sharedDirector()->getTouchDispatcher()->setDispatchEvents(true);
+    addChild(thang, 999 );
 }
 
 void ChoiDon::thua(){
-	 if (DataEncrypt::share()->getBoolForKey("music", true))
-	  SimpleAudioEngine::sharedEngine()->playEffect("Sound/music/lose.mp3", false);
+    CCDirector::sharedDirector()->getTouchDispatcher()->setDispatchEvents(true);
+//	 if (DataEncrypt::share()->getBoolForKey("music", true))
+//	  SimpleAudioEngine::sharedEngine()->playEffect("Sound/music/lose.mp3", false);
     CCParticleSystem* thua = CCParticleSystemQuad::create("lost.plist");
     thua->setPosition(ccp(240, 400));
-    addChild( thua, 999 );
+    addChild(thua, 999 );
 }
 
 void ChoiDon::aiplayerstart(){
+    
     if (isDARK) {
         CCDirector::sharedDirector()->getTouchDispatcher()->setDispatchEvents(true);
         isDARK = false;
@@ -349,8 +361,6 @@ void ChoiDon::aiplayerstart(){
 	computerAI->LoadBoard(m_Table, m_Colors);
     computerAI->start();
     sumtime = 0;
-    
-    
 }
 
 void ChoiDon::update(){
@@ -385,7 +395,6 @@ void ChoiDon::removePointAtpos(){
         }
         removeChildByTag(13258614, true);
     }
-    
 }
 
 
