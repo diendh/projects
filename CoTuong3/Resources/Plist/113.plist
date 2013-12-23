@@ -3,19 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>NAME</key>
-	<string>Trực đáo hoàng long</string>
-	<key>XANH</key>
+    <string>Trực đáo hoàng long</string>
+	<key>DO</key>
 	<array>
 		<string>804</string>
 		<string>320</string>
 		<string>625</string>
-		<string>725</string>
+	    <string>725</string>
 		<string>391</string>
 		<string>496</string>
 		<string>591</string>
 		<string>692</string>
 	</array>
-	<key>DO</key>
+	<key>XANH</key>
 	<array>
 		<string>202</string>
 		<string>301</string>

@@ -1,5 +1,4 @@
 #include "AppDelegate.h"
-#include "MenuGame.h"
 #include "ChoiDon.h"
 
 USING_NS_CC;
@@ -24,10 +23,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #else
     pDirector->getOpenGLView()->setDesignResolutionSize(480, 800, kResolutionShowAll);
 #endif
-    CCSpriteFrameCache* cacher = CCSpriteFrameCache::sharedSpriteFrameCache();
-    //CCLOG("so  %s    %i",_phaidanh.c_str(),_typedanh);
-    //CCString* plit = CCString::createWithFormat("animation/TieuDao/TieuDao.plist",_phaidanh.c_str(),_phaidanh.c_str());
-    cacher->addSpriteFramesWithFile("animation/TieuDao/TieuDao.plist");
 
     // turn on display FPS
     pDirector->setDisplayStats(true);
@@ -63,5 +58,5 @@ void AppDelegate::applicationWillEnterForeground() {
 
 void AppDelegate::musicButton(){
     if (DataEncrypt::share()->getBoolForKey("music", true))
-        SimpleAudioEngine::sharedEngine()->playEffect("Sound/4/S_Button.mp3", false);
+        SimpleAudioEngine::sharedEngine()->playEffect("Sound/S_Button.mp3", false);
 }

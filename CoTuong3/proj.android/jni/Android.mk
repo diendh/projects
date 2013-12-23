@@ -19,9 +19,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/ChoseDauTruong.cpp \
                    ../../Classes/MenuGame.cpp \
                    ../../Classes/Piece.cpp \
-                   ../../Classes/UserDataEncrypt.cpp \
-                   ../../Classes/Animation.cpp
- 
+                   ../../Classes/UserDataEncrypt.cpp
+
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_static
