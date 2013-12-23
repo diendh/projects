@@ -12,6 +12,7 @@
 #include <iostream>
 #include "cocos2d.h"
 #include "AIPlayer.h"
+
 using namespace std;
 USING_NS_CC;
 
@@ -32,7 +33,15 @@ private:
     
     bool isDARK;
 
+    int quanan;
+    int quanbian;
+    
+    int newmovefrom1;
+    int newmovedest1;
 public:
+    
+    void RunAnimation(int newmovefrom, int newmovedest);
+    void AnimationRunDone();
     
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();

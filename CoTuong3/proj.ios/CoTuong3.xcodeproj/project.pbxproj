@@ -251,6 +251,8 @@
 		BCAFE84218474288009B0F4C /* Piece.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCAFE84018474288009B0F4C /* Piece.cpp */; };
 		BCAFE8441847436B009B0F4C /* Banchoi in Resources */ = {isa = PBXBuildFile; fileRef = BCAFE8431847436B009B0F4C /* Banchoi */; };
 		BCD8C62318435008005AD0FA /* MenuGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCD8C62118435008005AD0FA /* MenuGame.cpp */; };
+		BCDC733C1867F83D000D9202 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCDC733A1867F83D000D9202 /* Animation.cpp */; };
+		BCDC733E1867F890000D9202 /* animation in Resources */ = {isa = PBXBuildFile; fileRef = BCDC733D1867F890000D9202 /* animation */; };
 		BCE7FD5F184432E500C7938B /* MenuChinh in Resources */ = {isa = PBXBuildFile; fileRef = BCE7FD5E184432E500C7938B /* MenuChinh */; };
 		BCE7FDEF18449AFA00C7938B /* ChoseDauTruong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCE7FDED18449AFA00C7938B /* ChoseDauTruong.cpp */; };
 		BCEAB7241845C84900D83258 /* CheDoChoi in Resources */ = {isa = PBXBuildFile; fileRef = BCEAB7231845C84900D83258 /* CheDoChoi */; };
@@ -777,6 +779,9 @@
 		BCAFE8431847436B009B0F4C /* Banchoi */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Banchoi; sourceTree = "<group>"; };
 		BCD8C62118435008005AD0FA /* MenuGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MenuGame.cpp; path = ../Classes/MenuGame.cpp; sourceTree = "<group>"; };
 		BCD8C62218435008005AD0FA /* MenuGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuGame.h; path = ../Classes/MenuGame.h; sourceTree = "<group>"; };
+		BCDC733A1867F83D000D9202 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Animation.cpp; path = ../Classes/Animation.cpp; sourceTree = "<group>"; };
+		BCDC733B1867F83D000D9202 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Animation.h; path = ../Classes/Animation.h; sourceTree = "<group>"; };
+		BCDC733D1867F890000D9202 /* animation */ = {isa = PBXFileReference; lastKnownFileType = folder; path = animation; sourceTree = "<group>"; };
 		BCE7FD5E184432E500C7938B /* MenuChinh */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MenuChinh; sourceTree = "<group>"; };
 		BCE7FDED18449AFA00C7938B /* ChoseDauTruong.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChoseDauTruong.cpp; sourceTree = "<group>"; };
 		BCE7FDEE18449AFA00C7938B /* ChoseDauTruong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoseDauTruong.h; sourceTree = "<group>"; };
@@ -1319,6 +1324,8 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				BCDC733A1867F83D000D9202 /* Animation.cpp */,
+				BCDC733B1867F83D000D9202 /* Animation.h */,
 				BCA7D0F1184C239400D043E3 /* Spriter */,
 				BCAFE8321847289F009B0F4C /* AES */,
 				BCAFE833184728A0009B0F4C /* UserDataEncrypt.cpp */,
@@ -1775,6 +1782,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BCDC733D1867F890000D9202 /* animation */,
 				BC5BADCE185B021400272946 /* lost.plist */,
 				BC5BADCF185B021400272946 /* win.plist */,
 				BC1FF5B818584D90006B23C7 /* Plist */,
@@ -1954,6 +1962,7 @@
 				BC1FF5B918584D90006B23C7 /* Plist in Resources */,
 				BC5BADD0185B021400272946 /* lost.plist in Resources */,
 				BC5BADD1185B021400272946 /* win.plist in Resources */,
+				BCDC733E1867F890000D9202 /* animation in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2058,6 +2067,7 @@
 				15A3DA421682F826002FB0C5 /* CCNode+CCBRelativePositioning.cpp in Sources */,
 				15A3DA431682F826002FB0C5 /* CCNodeLoader.cpp in Sources */,
 				15A3DA441682F826002FB0C5 /* CCNodeLoaderLibrary.cpp in Sources */,
+				BCDC733C1867F83D000D9202 /* Animation.cpp in Sources */,
 				15A3DA451682F826002FB0C5 /* CCParticleSystemQuadLoader.cpp in Sources */,
 				15A3DA461682F826002FB0C5 /* CCScale9SpriteLoader.cpp in Sources */,
 				15A3DA471682F826002FB0C5 /* CCScrollViewLoader.cpp in Sources */,

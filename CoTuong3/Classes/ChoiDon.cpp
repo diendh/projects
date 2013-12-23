@@ -47,7 +47,7 @@ bool ChoiDon::init()
         
     computerAI = new AIPlayer;
     computerAI->setDelegate(this);
-    computerAI->setMaxPly(7);
+    computerAI->setMaxPly(5);
     computerAI->setSide(LIGHT);
     
     this->setKeypadEnabled(true);
@@ -101,8 +101,8 @@ void ChoiDon::createTable() {
     memset(m_Colors, 0, 90);
     //read file plist
     // create this dictionary object within the content of our plist configuration file
-    int plist = arc4random()%22;
-    plist = 30;
+    int plist = arc4random()%84;
+    plist = 0;//39
     CCString *filename = CCString::createWithFormat("Plist/%i.plist",plist);
     CCLOG("%s",filename->getCString());
    std::string m_sPlistFile = CCFileUtils::sharedFileUtils()->fullPathForFilename(filename->getCString());
@@ -231,6 +231,17 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
         return;
     }
     
+//    if (getChildByTag(1000)) {
+//        newmovedest1 = newmovedest;
+//        newmovefrom1 = newmovefrom;
+//        return;
+//    }
+    RunAnimation(newmovefrom, newmovedest);
+   
+}
+
+void ChoiDon::RunAnimation(int newmovefrom, int newmovedest){
+	CCLOG("RunAnimation");
     if (!isDARK){
         if (!arrayAtPos[newmovedest]) {
             for (int i = 0; i < this->getChildren()->count() ; i++) {
@@ -248,6 +259,7 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
     }
     
     computerAI->stop();
+//    quanbian = -1;
     
     for (int i = 0; i < this->getChildren()->count() ; i++) {
         Piece *piece = dynamic_cast<Piece*>(this->getChildren()->objectAtIndex(i));
@@ -255,6 +267,7 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
             if (piece->getTag() == newmovedest) {
                 if (DataEncrypt::share()->getBoolForKey("music", true))
                     SimpleAudioEngine::sharedEngine()->playEffect("Sound/S_AnQuan.mp3", false);
+//                quanbian = piece->getType();//lay quan co
                 piece->removeFromParent();
             }
         }
@@ -265,7 +278,8 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
         if (piece) {
             if (piece->getTag() == newmovefrom) {
                 piece->setTag(newmovedest);
-//                piece->setPosition(getPosAtIndex(newmovedest));
+//                quanan = piece->getType();
+                //                piece->setPosition(getPosAtIndex(newmovedest));
                 CCMoveTo *moveto = CCMoveTo::create(0.5f, getPosAtIndex(newmovedest));
                 CCScaleTo *scaleto = CCScaleTo::create(0.25f, 2);
                 CCScaleTo *scaleto2 = CCScaleTo::create(0.25f, 1);
@@ -278,7 +292,12 @@ void ChoiDon::AIPlayerRunDone(int newmovefrom, int newmovedest){
             }
         }
     }
-    
+//    if (quanbian!=-1) {
+//        Animation *ani = (Animation*)Animation::sprite(quanan, quanbian, TRIEUDINH, TIEUDAO);
+//        ani->setDelegate(this);
+//        ani->setPosition(ccp(240, 400));
+//        addChild(ani,1000,1000);
+//    }
     removePointAtpos();
     removeChildByTag(100, true);
     doAfterMoveDone();
@@ -401,4 +420,8 @@ void ChoiDon::removePointAtpos(){
 void ChoiDon::keyBackClicked(){
     CCDirector::sharedDirector()->replaceScene(CCTransitionCrossFade::create(0.2, ChoseDauTruong::scene()));
 
+}
+
+void ChoiDon::AnimationRunDone(){
+    RunAnimation(newmovefrom1, newmovedest1);
 }

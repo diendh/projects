@@ -23,6 +23,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #else
     pDirector->getOpenGLView()->setDesignResolutionSize(480, 800, kResolutionShowAll);
 #endif
+    CCSpriteFrameCache* cacher = CCSpriteFrameCache::sharedSpriteFrameCache();
+    //CCLOG("so  %s    %i",_phaidanh.c_str(),_typedanh);
+    //CCString* plit = CCString::createWithFormat("animation/TieuDao/TieuDao.plist",_phaidanh.c_str(),_phaidanh.c_str());
+    cacher->addSpriteFramesWithFile("animation/TieuDao/TieuDao.plist");
 
     // turn on display FPS
     pDirector->setDisplayStats(true);

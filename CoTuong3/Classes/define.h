@@ -11,6 +11,11 @@
 #define KING  6
 #define EMPTY 7
 
+#define TRIEUDINH "TrieuDinh"
+#define CAIBANG "CaiBang"
+#define TIEUDAO "TieuDao"
+#define VODANG "VoDang"
+
 #define CHIEU  20
 #define WIN  21
 #define START_GAME  22
